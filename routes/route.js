@@ -5,8 +5,13 @@ const {
 const api = Router()
 
 api.get('/', (req, res) => {
-    res.render('main', {
-        title: 'MainPage'
+    res.render('index', {
+        title: 'Главная страница'
+    })
+})
+api.get('/news', (req, res) => {
+    res.render('articlesPage', {
+        title: 'Новости'
     })
 })
 
