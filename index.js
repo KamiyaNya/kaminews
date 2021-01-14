@@ -2,6 +2,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const session = require('express-session')
+const passport = require('passport')
+const flash = require('connect-flash')
 const cors = require('cors')
 
 // Import files from project
@@ -23,11 +26,24 @@ const hbs = exphbs.create({
 })
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
+
+app.use(flash())
+
 // Use parser
+app.use(express.json())
 app.use(express.urlencoded({
     extended: true
 }))
-
+app.use(passport.initialize())
+app.use(passport.session())
+// require('./middleware/passport')(passport)
+app.use(
+    session({
+        secret: "adminrealsobaka",
+        saveUninitialized: true,
+        resave: true
+    })
+)
 app.use(cors())
 
 //Use our routes
