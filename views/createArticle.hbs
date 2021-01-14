@@ -1,0 +1,19 @@
+<div class="container mt-3 mb-3">
+    <div class="row">
+        <form method="{{method}}" action="{{actionUrl}}">
+            <div class="mb-3">
+                <label for="articleHeader" class="form-label">Название новости</label>
+                <input type="text" class="form-control" name="articleTitle" id="articleHeader"
+                    placeholder="Краткое название" required>
+            </div>
+            <div class="mb-3">
+                <label for="articleBody" class="form-label">Ваша новость</label>
+                <textarea class="form-control" name="articleBody" id="articleBody" rows="12" placeholder="Текст новости"
+                    required></textarea>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-dark" type="submit">Опубликовать новость</button>
+            </div>
+        </form>
+    </div>
+</div>
