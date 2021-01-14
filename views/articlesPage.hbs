@@ -1,5 +1,16 @@
-<main class="main-container">
-    <div class="main-box">
+<main class="main-container container">
+    <div class="main-box row">
+        {{#if articles}}
+        <ul>
+            {{#each articles}}
+            <li>
+                <a href="/article:{{_id}}">{{articleTitle}} + {{_id}}</a>
+            </li>
+            {{/each}}
+        </ul>
+        {{/if}}
 
     </div>
 </main>
+
+{{>footer}}
