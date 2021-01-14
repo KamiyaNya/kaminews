@@ -1,13 +1,29 @@
 const {
     Router
 } = require('express')
+const {
+    body
+} = require('express-validator')
+const passport = require('passport')
 
-const controller = require('../controllers/mainRoutes')
+const mainController = require('../controllers/mainRoutes')
+const loginController = require('../controllers/loginController')
+const createArticleController = require('../controllers/createArticle')
+const getArticlesConstroller = require('../controllers/getArticles')
 
 const api = Router()
 
-api.get('/', controller.mainPage)
-api.get('/news', controller.newsPage)
-api.get('/article:id', controller.articlePage)
+api.get('/', mainController.mainPage)
+api.get('/news', getArticlesConstroller.getArticles)
+api.get('/article:id', getArticlesConstroller.getArticleById)
+api.get('/create_article', mainController.createArticlePage)
+api.get('/adminsobakapanel', mainController.loginPage)
+api.post('/check_user', loginController.checkUser)
+api.post('/publishToSite', [
+    body('articleTitle').not().isEmpty().withMessage("Заголовок не может быть пустым"),
+    body('articleBody').not().isEmpty().withMessage("тело не может быть пустым")
+], createArticleController.createArticle)
+
+
 
 module.exports = api
