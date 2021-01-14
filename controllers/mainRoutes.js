@@ -3,13 +3,18 @@ module.exports.mainPage = function (req, res) {
         title: 'Главная страница'
     })
 }
-module.exports.newsPage = function (req, res) {
-    res.render('articlesPage', {
-        title: 'Новости'
+
+module.exports.loginPage = function (req, res) {
+    res.render('loginPage', {
+        title: 'Войти',
+        method: 'POST',
+        actionUrl: '/check_user'
     })
 }
-module.exports.articlePage = function (req, res) {
-    res.render('articlePage', {
-        title: 'Новость'
+module.exports.createArticlePage = function (req, res) {
+    res.render('createArticle', {
+        title: 'Добавить новость',
+        method: 'POST',
+        actionUrl: '/publishToSite'
     })
 }
