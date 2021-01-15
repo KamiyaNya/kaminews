@@ -15,7 +15,7 @@ const api = Router()
 
 api.get('/', mainController.mainPage)
 api.get('/news', getArticlesConstroller.getArticles)
-api.get('/article:id', getArticlesConstroller.getArticleById)
+api.get('/news/:id', getArticlesConstroller.getArticleById)
 api.get('/create_article', mainController.createArticlePage)
 api.get('/adminsobakapanel', mainController.loginPage)
 api.post('/check_user', loginController.checkUser)
