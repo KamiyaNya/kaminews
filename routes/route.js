@@ -16,7 +16,9 @@ const api = Router()
 api.get('/', mainController.mainPage)
 api.get('/news', getArticlesConstroller.getArticles)
 api.get('/news/:id', getArticlesConstroller.getArticleById)
-api.get('/create_article', mainController.createArticlePage)
+api.get('/create_article', passport.authenticate('jwt', {
+    session: false
+}), mainController.createArticlePage)
 api.get('/adminsobakapanel', mainController.loginPage)
 api.post('/check_user', loginController.checkUser)
 api.post('/publishToSite', [
