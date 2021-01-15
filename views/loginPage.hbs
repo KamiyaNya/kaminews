@@ -10,8 +10,28 @@
                 <input type="password" class="form-control" id="validationDefault02" name="password" required>
             </div>
             <div class="col-12">
-                <button class="btn btn-dark" type="submit">Войти</button>
+                <button class="btn btn-dark access" type="submit">Войти</button>
             </div>
         </form>
     </div>
 </div>
+<script>
+    const btn = document.querySelector('.access')
+    const token = JSON.stringify(token)
+    btn.addEventListener('click', () => {
+        try {
+            const response = await fetch('/check_user', {
+                method: 'get',
+                body: JSON.stringify(token),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const json = await response.json()
+            console.log(JSON.stringify(json))
+        } catch (e) {
+            console.log(e)
+        }
+
+    })
+</script>

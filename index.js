@@ -35,16 +35,17 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(passport.initialize())
-app.use(passport.session())
-// require('./middleware/passport')(passport)
-app.use(
-    session({
-        secret: "adminrealsobaka",
-        saveUninitialized: true,
-        resave: true
-    })
-)
+require('./middleware/passport')(passport)
+// app.use(
+//     session({
+//         secret: "adminrealsobaka",
+//         saveUninitialized: true,
+//         resave: true
+//     })
+// )
 app.use(cors())
+
+
 
 //Use our routes
 app.use(router)

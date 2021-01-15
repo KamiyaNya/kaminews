@@ -6,6 +6,7 @@ const Article = require('../models/Article')
 
 module.exports.createArticle = async function (req, res) {
     try {
+
         const articleTitle = req.body.articleTitle
         const articleBody = req.body.articleBody
         const errors = validationResult(res)

@@ -17,6 +17,7 @@ api.get('/', mainController.mainPage)
 api.get('/news', getArticlesConstroller.getArticles)
 api.get('/news/:id', getArticlesConstroller.getArticleById)
 api.get('/create_article', passport.authenticate('jwt', {
+    failureRedirect: '/adminsobakapanel',
     session: false
 }), mainController.createArticlePage)
 api.get('/adminsobakapanel', mainController.loginPage)
