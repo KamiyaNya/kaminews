@@ -35,8 +35,7 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(passport.initialize())
-app.use(passport.session())
-// require('./middleware/passport')(passport)
+require('./middleware/passport')(passport)
 app.use(
     session({
         secret: "adminrealsobaka",
@@ -44,6 +43,7 @@ app.use(
         resave: true
     })
 )
+
 app.use(cors())
 
 //Use our routes
