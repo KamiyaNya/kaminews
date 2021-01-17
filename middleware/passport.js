@@ -11,14 +11,13 @@ const options = {
 
 
 module.exports = passport => {
-
     passport.use(new JWTStrategy(options, async (payload, done) => {
         const user = await User.findById(payload.userId).select('email id')
         if (!user) {
-            done(null, false)
+            return done(null, false)
         }
         if (user) {
-            done(null, user)
+            return done(null, user)
         }
     }))
 }
