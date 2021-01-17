@@ -1,10 +1,11 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const request = require('request')
 
 const User = require('../models/User')
 const jwtKey = require('../config.json').secretJWTKey
 
-module.exports.checkUser = async function (req, res) {
+module.exports.checkUser = async function (req, res, next) {
     try {
         const username = req.body.username
         const password = req.body.password
@@ -26,9 +27,10 @@ module.exports.checkUser = async function (req, res) {
         }, jwtKey, {
             expiresIn: '1h'
         })
-        res.json(token)
-        // res.redirect('/create_article')
 
+        await res.cookie('token', `${token}`)
+        console.log('real token : ' + token)
+        res.redirect('/adminsobakapanel/create_article')
     } catch (e) {
         console.log(e)
     }
