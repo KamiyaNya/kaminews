@@ -41,7 +41,7 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(passport.initialize())
-<<<<<<< HEAD
+
 require('./middleware/passport')(passport)
 app.use(
     session({
@@ -52,7 +52,7 @@ app.use(
 )
 
 app.use(cors())
-=======
+
 app.use(passport.session())
 require('./middleware/passport')(passport)
 // const MongoStore = require('connect-mongo')(session)
@@ -69,7 +69,7 @@ require('./middleware/passport')(passport)
 // app.use((req, res, next) => {
 //     req.session
 // })
->>>>>>> login-fix
+
 
 //Use our routes
 app.use(router)
