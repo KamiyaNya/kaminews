@@ -9,6 +9,13 @@ module.exports.createArticle = async function (req, res) {
 
         const articleTitle = req.body.articleTitle
         const articleBody = req.body.articleBody
+        const typeOfArticles = req.body.typeOfArticles
+        const trim = typeOfArticles.split(' ')
+        const articles = []
+        for (let i = 0; i < trim.length; i++) {
+            articles.push(typeOfArticles[i])
+        }
+        console.log(articles)
         const errors = validationResult(res)
         if (!errors.isEmpty()) {
             res.status(422).json({
@@ -27,10 +34,11 @@ module.exports.createArticle = async function (req, res) {
         }
         const newArticle = Article({
             articleTitle: articleTitle,
-            articleBody: articleBody
+            articleBody: articleBody,
+            typeOfArticles: articles
         })
         await newArticle.save()
-        res.status(200).send(`Новость добавлена, Тема новости <strong>'${articleTitle}'</strong>, телo новости '<strong>${articleBody}</strong>', <a href='/create_article'>Вернуться</a>`)
+        res.status(200).send(`Новость добавлена, Тема новости <strong>'${articleTitle}'</strong>, телo новости '<strong>${articleBody}</strong>', <a href='/adminsobakapanel/create_article'>Вернуться</a>`)
     } catch (e) {
         console.log(e)
     }
