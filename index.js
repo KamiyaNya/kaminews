@@ -6,6 +6,10 @@ const session = require('express-session')
 const passport = require('passport')
 const flash = require('connect-flash')
 const cors = require('cors')
+const io = require('socket.io')
+const cookieParser = require('cookie-parser')
+
+
 
 // Import files from project
 const config = require('./config.json')
@@ -13,12 +17,14 @@ const router = require('./routes/route')
 
 // Init variables
 const PORT = process.env.PORT || 3000
+
 const dataBaseUrl = config.dataBaseUrl
 
 // Create app
 const app = express()
-
+app.use(cors())
 app.use(express.static(__dirname + '/public'))
+app.use(cookieParser())
 
 // Init view engine express-hbs
 const hbs = exphbs.create({
@@ -35,17 +41,22 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(passport.initialize())
+app.use(passport.session())
 require('./middleware/passport')(passport)
+// const MongoStore = require('connect-mongo')(session)
 // app.use(
 //     session({
 //         secret: "adminrealsobaka",
 //         saveUninitialized: true,
-//         resave: true
+//         resave: true,
+//         store: new MongoStore({
+//             mongooseConnection: mongoose.connection
+//         })
 //     })
 // )
-app.use(cors())
-
-
+// app.use((req, res, next) => {
+//     req.session
+// })
 
 //Use our routes
 app.use(router)
