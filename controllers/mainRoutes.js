@@ -8,13 +8,16 @@ module.exports.loginPage = function (req, res) {
     res.render('loginPage', {
         title: 'Войти',
         method: 'POST',
-        actionUrl: '/check_user'
+        actionUrl: '/adminsobakapanel/check_user'
     })
 }
 module.exports.createArticlePage = function (req, res) {
+
+    // const bearerAuth = req.header['authorization']
     res.render('createArticle', {
         title: 'Добавить новость',
         method: 'POST',
         actionUrl: '/publishToSite'
     })
+
 }

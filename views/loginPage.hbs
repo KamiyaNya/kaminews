@@ -10,8 +10,26 @@
                 <input type="password" class="form-control" id="validationDefault02" name="password" required>
             </div>
             <div class="col-12">
-                <button class="btn btn-dark" type="submit">Войти</button>
+                <button class="btn btn-dark access" type="submit">Войти</button>
             </div>
         </form>
     </div>
 </div>
+<script>
+    const btn = document.querySelector('.access')
+    btn.addEventListener('click', () => {
+        const getCookie = JSON.stringify(document.cookie).split('=')[1]
+        try {
+            fetch('/create_article', {
+                method: 'post',
+                header: {
+                    'Authorization': ` Bearer ${getCookie}`
+                }
+            })
+            console.log(getCookie)
+        } catch (e) {
+            console.log(e)
+        }
+
+    })
+</script>

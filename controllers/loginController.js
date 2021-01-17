@@ -1,8 +1,11 @@
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const request = require('request')
 
 const User = require('../models/User')
+const jwtKey = require('../config.json').secretJWTKey
 
-module.exports.checkUser = async function (req, res) {
+module.exports.checkUser = async function (req, res, next) {
     try {
         const username = req.body.username
         const password = req.body.password
@@ -18,12 +21,18 @@ module.exports.checkUser = async function (req, res) {
             res.status(401).send("Пароль не верный")
             // send(`<p>Пароль не совпал <a href="/login">Вернуться</a></p>`)
         }
-        res.redirect('/create_article')
-
-    } catch (e) {
-        res.status(500).json({
-            message: `Server error ${e}`
+        const token = jwt.sign({
+            userId: user._id,
+            username: user.email
+        }, jwtKey, {
+            expiresIn: '1h'
         })
+
+        await res.cookie('token', `${token}`)
+        console.log('real token : ' + token)
+        res.redirect('/adminsobakapanel/create_article')
+    } catch (e) {
+        console.log(e)
     }
 
 }

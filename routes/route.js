@@ -13,12 +13,23 @@ const getArticlesConstroller = require('../controllers/getArticles')
 
 const api = Router()
 
+
 api.get('/', mainController.mainPage)
 api.get('/news', getArticlesConstroller.getArticles)
 api.get('/news/:id', getArticlesConstroller.getArticleById)
-api.get('/create_article', mainController.createArticlePage)
+api.get('/adminsobakapanel/create_article', (req, res, next) => {
+    const cookies = req.cookies.token
+    console.log('token from cookie : ' + cookies)
+    res.header({
+        'Authorization': `Bearer ${cookies}`
+    })
+    next()
+}, passport.authenticate('jwt', {
+    session: false
+}), mainController.createArticlePage)
+
 api.get('/adminsobakapanel', mainController.loginPage)
-api.post('/check_user', loginController.checkUser)
+api.post('/adminsobakapanel/check_user', loginController.checkUser)
 api.post('/publishToSite', [
     body('articleTitle').not().isEmpty().withMessage("Заголовок не может быть пустым"),
     body('articleBody').not().isEmpty().withMessage("тело не может быть пустым")
