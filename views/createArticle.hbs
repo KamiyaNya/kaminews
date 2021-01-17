@@ -1,19 +1,63 @@
 <div class="container mt-3 mb-3">
     <div class="row">
         <form method="{{method}}" action="{{actionUrl}}">
-            <div class="mb-3">
-                <label for="articleHeader" class="form-label">Название новости</label>
-                <input type="text" class="form-control" name="articleTitle" id="articleHeader"
-                    placeholder="Краткое название" required>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="input_text" type="text" data-length="100">
+                    <label for="input_text">Заголовок новости</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="textarea2" class="materialize-textarea" data-length="1024"></textarea>
+                    <label for="textarea2">Тело новость</label>
+                </div>
             </div>
             <div class="mb-3">
-                <label for="articleBody" class="form-label">Ваша новость</label>
-                <textarea class="form-control" name="articleBody" id="articleBody" rows="12" placeholder="Текст новости"
-                    required></textarea>
+                <div class="input-field col s12">
+                    <label for="articles_tag">Выберите теги</label>
+                    <input id="input_text" type="text" disabled>
+                </div>
+
             </div>
+            <div class="row col s2">
+                <a class='dropdown-trigger btn' data-target='dropdown1'>Drop Me!</a>
+                <ul id='dropdown1' class='dropdown-content'>
+                    <li><a>Игровые новости</a></li>
+                    <li><a>Новости про железо</a></li>
+                    <li><a>NVIDIA</a></li>
+                    <li><a>AMD</a></li>
+                    <li><a>Intel</a></li>
+                    <li><a>Игры</a></li>
+                    <li><a>Другие</a></li>
+                </ul>
+            </div>
+
             <div class="col-12">
                 <button class="btn btn-dark" type="submit">Опубликовать новость</button>
             </div>
         </form>
     </div>
 </div>
+{{!--
+<script>
+    const getCookie = JSON.stringify(document.cookie).split('=')[1]
+    try {
+        const res = fetch('http://localhost:3000/adminsobakapanel/create_article', {
+            method: 'get',
+            headers: {
+                'Authorization': getCookie
+            }
+        }).then(res => console.log(res))
+        console.log(getCookie)
+    } catch (e) {
+        console.log(e)
+    }
+</script> --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelector('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems);
+
+    });
+</script>
