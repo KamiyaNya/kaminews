@@ -1,8 +1,14 @@
 <main class="main-container container">
     <div class="main-box row pt-5 pb-5">
-        <h1 class="row">{{articleTitle}}</h1>
-        <div class="row justify-content-center mt-5">
-            <h5 class="row col-10">{{articleBody}}</h5>
+        <h1 class="row">{{articleTitle}} <p>{{articleDate}}</p>
+        </h1>
+        <div class="row col-6 mt-5 flex-wrap">
+            {{articleBody}}
+        </div>
+        <div class="row border">
+            Теги :{{#each articleTags}}
+            <li>{{articleTags}}</li>
+            {{/each}}
         </div>
     </div>
 </main>
