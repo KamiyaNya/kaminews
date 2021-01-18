@@ -2,7 +2,7 @@
     <div class="row justify-content-center ">
         <form class="col-lg-6" method="{{method}}" action="{{actionUrl}}">
             <div class="mb-3">
-                <label for="validationDefault01" class="form-label">Username</label>
+                <label for="validationDefault01" class="form-label">Имя пользователя</label>
                 <input type="text" class="form-control" id="validationDefault01" name="username" required>
             </div>
             <div class="mb-3">
@@ -15,21 +15,3 @@
         </form>
     </div>
 </div>
-<script>
-    const btn = document.querySelector('.access')
-    btn.addEventListener('click', () => {
-        const getCookie = JSON.stringify(document.cookie).split('=')[1].replace('"', "")
-        try {
-            $.ajax('/adminsobakapanel/create_article', {
-                method: 'post',
-                header: {
-                    'Authorization': ` Bearer ${getCookie}`
-                }
-            })
-            console.log(getCookie)
-        } catch (e) {
-            console.log(e)
-        }
-
-    })
-</script>
