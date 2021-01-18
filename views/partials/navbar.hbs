@@ -11,7 +11,12 @@
         <a href="/news" class="link">Новости</a>
       </li>
       <li class="nav-links">
+        {{#if checkAdmin}}
         <a href="/adminsobakapanel" class="link">Админка</a>
+        {{/if}}
+        {{#if logout}}
+        <a href="/logout" class="link">Выйти</a>
+        {{/if}}
       </li>
     </ul>
   </nav>
