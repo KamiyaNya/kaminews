@@ -14,12 +14,15 @@ const article = new Schema({
     typeOfArticles: {
         type: [String],
         default: ['']
+    },
+    articleDate: {
+        type: Date,
+
+    },
+    user: {
+        ref: 'User',
+        type: Schema.Types.ObjectId
     }
-    // user: {
-    //     ref: user,
-    //     _id: Schema.Types.ObjectId,
-    //     username: email
-    // }
 })
 
 module.exports = model("Article", article)
