@@ -18,9 +18,9 @@
 <script>
     const btn = document.querySelector('.access')
     btn.addEventListener('click', () => {
-        const getCookie = JSON.stringify(document.cookie).split('=')[1]
+        const getCookie = JSON.stringify(document.cookie).split('=')[1].replace('"', "")
         try {
-            fetch('/create_article', {
+            $.ajax('/adminsobakapanel/create_article', {
                 method: 'post',
                 header: {
                     'Authorization': ` Bearer ${getCookie}`
