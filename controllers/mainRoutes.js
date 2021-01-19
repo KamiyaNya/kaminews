@@ -1,6 +1,7 @@
 module.exports.mainPage = function (req, res) {
     res.render('index', {
-        title: 'Главная страница'
+        title: 'Главная страница',
+        checkAdmin: true
     })
 }
 
@@ -8,16 +9,16 @@ module.exports.loginPage = function (req, res) {
     res.render('loginPage', {
         title: 'Войти',
         method: 'POST',
-        actionUrl: '/adminsobakapanel/check_user'
+        actionUrl: '/adminsobakapanel/check_user',
+        checkAdmin: true
     })
 }
 module.exports.createArticlePage = function (req, res) {
-
-    // const bearerAuth = req.header['authorization']
     res.render('createArticle', {
         title: 'Добавить новость',
         method: 'POST',
-        actionUrl: '/publishToSite'
+        actionUrl: '/adminsobakapanel/create_article/publishToSite',
+        logout: true
     })
 
 }
