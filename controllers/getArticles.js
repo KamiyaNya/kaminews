@@ -6,7 +6,8 @@ module.exports.getArticles = async (req, res) => {
         res.render('articlesPage', {
             title: 'Новости',
             articles,
-            id: articles._id
+            id: articles._id,
+            checkAdmin: true
         })
     } catch (e) {
         if (e) {
@@ -26,7 +27,10 @@ module.exports.getArticleById = async (req, res, next) => {
             title: articles.articleTitle,
             id: postId,
             articleTitle: articles.articleTitle,
-            articleBody: articles.articleBody
+            articleBody: articles.articleBody,
+            artileTags: articles.typeOfArticles,
+            articleDate: articles.articleDate,
+            checkAdmin: true
         })
     } catch (error) {
         if (error) {
