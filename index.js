@@ -2,14 +2,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
-const session = require('express-session')
-const passport = require('passport')
-const flash = require('connect-flash')
 const cors = require('cors')
 const io = require('socket.io')
 const cookieParser = require('cookie-parser')
-
-
 
 // Import files from project
 const config = require('./config.json')
@@ -33,43 +28,12 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 
-app.use(flash())
-
 // Use parser
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
 }))
-app.use(passport.initialize())
-
-require('./middleware/passport')(passport)
-app.use(
-    session({
-        secret: "adminrealsobaka",
-        saveUninitialized: true,
-        resave: true
-    })
-)
-
 app.use(cors())
-
-app.use(passport.session())
-require('./middleware/passport')(passport)
-// const MongoStore = require('connect-mongo')(session)
-// app.use(
-//     session({
-//         secret: "adminrealsobaka",
-//         saveUninitialized: true,
-//         resave: true,
-//         store: new MongoStore({
-//             mongooseConnection: mongoose.connection
-//         })
-//     })
-// )
-// app.use((req, res, next) => {
-//     req.session
-// })
-
 
 //Use our routes
 app.use(router)
