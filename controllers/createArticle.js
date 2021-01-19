@@ -13,9 +13,12 @@ module.exports.createArticle = async function (req, res) {
         const trim = typeOfArticles.split(' ')
         const articles = []
         for (let i = 0; i < trim.length; i++) {
-            articles.push(typeOfArticles[i])
+            articles.push(trim[i])
         }
-        console.log(articles)
+        console.log(articleTitle)
+        console.log(articleBody)
+        console.log(typeOfArticles)
+
         const errors = validationResult(res)
         if (!errors.isEmpty()) {
             res.status(422).json({
@@ -35,7 +38,8 @@ module.exports.createArticle = async function (req, res) {
         const newArticle = Article({
             articleTitle: articleTitle,
             articleBody: articleBody,
-            typeOfArticles: articles
+            typeOfArticles: articles,
+            articleDate: new Date(Date.now())
         })
         await newArticle.save()
         res.status(200).send(`Новость добавлена, Тема новости <strong>'${articleTitle}'</strong>, телo новости '<strong>${articleBody}</strong>', <a href='/adminsobakapanel/create_article'>Вернуться</a>`)
