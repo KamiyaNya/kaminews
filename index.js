@@ -19,6 +19,8 @@ const dataBaseUrl = config.dataBaseUrl
 const app = express()
 app.use(cors())
 app.use(express.static(__dirname + '/public'))
+app.use('/uploads', express.static('uploads'))
+
 app.use(cookieParser())
 
 // Init view engine express-hbs
