@@ -1,23 +1,34 @@
-<div class="nav-container container-fluid">
-  <nav class="nav-box container">
-    <ul class="nav-links-container">
-      <li class="nav-links">
-        <a href="/" class="link">Главная</a>
-      </li>
-      <li class="nav-links">
-        <h4 class="link">KamiNews</>
-      </li>
-      <li class="nav-links">
-        <a href="/news" class="link">Новости</a>
-      </li>
-      <li class="nav-links">
-        {{#if checkAdmin}}
-        <a href="/adminsobakapanel" class="link">Админка</a>
-        {{/if}}
-        {{#if logout}}
-        <a href="/logout" class="link">Выйти</a>
-        {{/if}}
-      </li>
+<div class="nav-container container-fluid ">
+  <nav class="container nav-box navbar navbar-expand-sm navbar-dark">
+    <a class="navbar-brand justify-content-start" href="/">
+      <p class="ps-sm-3 ps-2 p-0 m-0">KamiNewsPresent</p>
+    </a>
+
+    <button class="navbar-toggler justify-content-right" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="collapse navbar-collapse  nav-links-container justify-content-end" id="navbarNav">
+      <div class="navbar-nav flex-column flex-sm-row  d-flex">
+        <li class="row flex-wrap nav-item">
+          <ul class="d-flex flex-column flex-sm-row">
+            <li class="nav-links nav-item">
+              <a href="/" class="nav-link">Главная</a>
+            </li>
+            <li class="nav-links nav-item">
+              <a href="/news" class="nav-link">Новости</a>
+            </li>
+            <li class="nav-links nav-item ">
+              {{#if checkAdmin}}
+              <a href="/adminsobakapanel" class="nav-link">Админка</a>
+              {{/if}}
+              {{#if logout}}
+              <a href="/logout" class="nav-link">Выйти</a>
+              {{/if}}
+            </li>
+          </ul>
+        </li>
+      </div>
     </ul>
   </nav>
 </div>
