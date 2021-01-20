@@ -11,6 +11,7 @@ const loginController = require('../controllers/loginController')
 const createArticleController = require('../controllers/createArticle')
 const getArticlesConstroller = require('../controllers/getArticles')
 const jwtKey = require('../config.json').secretJWTKey
+const upload = require('../middleware/upload')
 
 const api = Router()
 
@@ -48,7 +49,7 @@ api.get('/logout', async (req, res) => {
     res.redirect('/');
 })
 api.post('/adminsobakapanel/check_user', loginController.checkUser)
-api.post('/adminsobakapanel/create_article/publishToSite', [
+api.post('/adminsobakapanel/create_article/publishToSite', upload.single('articleImg'), [
     body('articleTitle').not().isEmpty().withMessage("Заголовок не может быть пустым"),
     body('articleBody').not().isEmpty().withMessage("тело не может быть пустым")
 ], createArticleController.createArticle)
