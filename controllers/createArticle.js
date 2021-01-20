@@ -18,7 +18,7 @@ module.exports.createArticle = async function (req, res) {
         console.log(articleTitle)
         console.log(articleBody)
         console.log(typeOfArticles)
-
+        // console.log(imageSrc)
         const errors = validationResult(res)
         if (!errors.isEmpty()) {
             res.status(422).json({
@@ -35,11 +35,14 @@ module.exports.createArticle = async function (req, res) {
                 message: "Пустое тело новости"
             })
         }
+        console.log(req.user)
         const newArticle = Article({
             articleTitle: articleTitle,
             articleBody: articleBody,
             typeOfArticles: articles,
-            articleDate: new Date(Date.now())
+            articleDate: new Date(Date.now()),
+            imageSrc: req.file ? req.file.path : ''
+
         })
         await newArticle.save()
         res.status(200).send(`Новость добавлена, Тема новости <strong>'${articleTitle}'</strong>, телo новости '<strong>${articleBody}</strong>', <a href='/adminsobakapanel/create_article'>Вернуться</a>`)

@@ -1,34 +1,41 @@
 <div class="container mt-3 mb-3">
-    <div class="row justify-content-center ">
-        <form method="{{method}}" action="{{actionUrl}}" class="col-lg-12 g-3 needs-validation" novalidate>
-            <div class="col-md-10 mt-3">
-                <label for="validationCustom01" class="form-label">Заголовок</label>
-                <input type="text" class="form-control" id="validationCustom01" name="articleTitle" required>
-                <div class="valid-feedback">
-                    Отлично!
+    <div class="row justify-content-center me-0">
+        <div class="row">
+            <form method="{{method}}" action="{{actionUrl}}" class="col g-3 needs-validation" novalidate
+                enctype="multipart/form-data">
+                <div class="col mt-3">
+                    <label for="validationCustom01" class="form-label">Заголовок</label>
+                    <input type="text" class="form-control" id="validationCustom01" name="articleTitle" required>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-10 mt-3">
-                <label for="validationCustom02" class="form-label">Тело</label>
-                <textarea type="text" class="form-control" id="validationCustom02" name="articleBody" rows="10"
-                    wrap="hard" required></textarea>
-                <div class="valid-feedback">
-                    Отлично!
+                <div class="col mt-3">
+                    <label for="validationCustom02" class="form-label">Тело</label>
+                    <textarea type="text" class="form-control" id="validationCustom02" name="articleBody" rows="10"
+                        wrap="hard" required></textarea>
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-10 mt-3 mb-3">
-                <label for="validationCustom03" class="form-label">Теги</label>
-                <input type="text" class="form-control" id="validationCustom03" name="typeOfArticles">
-                <div class="valid-feedback">
-                    Отлично!
+                <div class="col mt-3 mb-3">
+                    <label for="validationCustom03" class="form-label">Теги</label>
+                    <input type="text" class="form-control" id="validationCustom03" name="typeOfArticles">
+                    <div class="valid-feedback">
+                        Отлично!
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-12">
-                <button class="btn btn-dark" type="submit">Опубликовать пост</button>
-            </div>
-        </form>
-
+                <div class="mb-3 col col-sm-4">
+                    <label for="formFile" class="form-label">Выберите
+                        изображение</label>
+                    <input class="form-control" type="file" accept="image/png,image/jpeg,image/jpg" name="articleImg"
+                        id="formFile">
+                </div>
+                <div class="col-12">
+                    <button class="btn btn-dark" type="submit">Опубликовать пост</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <script>
