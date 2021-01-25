@@ -12,11 +12,11 @@ module.exports.checkUser = async function (req, res, next) {
             email: username
         })
         if (!user) {
-            res.status(404).send(`<p>Пользователь ${username} не найден <a href="/login">Вернуться</a><p>`)
+            res.status(404).send(`<p>Пользователь ${username} не найден <a href="/adminpanel">Вернуться</a><p>`)
         }
         const validPassword = await bcrypt.compareSync(password, user.password)
         if (!validPassword) {
-            res.status(401).send(`<p>Пароль не совпал <a href="/login">Вернуться</a></p>`)
+            res.status(401).send(`<p>Пароль не совпал <a href="/adminpanel">Вернуться</a></p>`)
         }
         const token = jwt.sign({
             userId: user._id,
@@ -30,10 +30,9 @@ module.exports.checkUser = async function (req, res, next) {
             httpOnly: true
         })
         setTimeout(() => {
-            res.redirect('/adminsobakapanel/create_article')
+            res.redirect('/adminpanel/create_article')
         }, 1000)
     } catch (e) {
         console.log(e)
     }
-
 }

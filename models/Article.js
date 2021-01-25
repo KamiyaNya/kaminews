@@ -11,10 +11,6 @@ const article = new Schema({
     articleBody: {
         type: String
     },
-    typeOfArticles: {
-        type: [String],
-        default: ['']
-    },
     articleDate: {
         type: Date,
 
@@ -22,11 +18,12 @@ const article = new Schema({
     imageSrc: {
         type: String,
         default: ''
-    },
-    user: {
-        ref: 'User',
-        type: Schema.Types.ObjectId
     }
+    // ,
+    // user: {
+    //     ref: 'User',
+    //     type: Schema.Types.ObjectId
+    // }
 })
 
 module.exports = model("Article", article)

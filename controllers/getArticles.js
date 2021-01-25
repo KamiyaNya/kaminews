@@ -16,21 +16,19 @@ module.exports.getArticles = async (req, res) => {
             console.log(e)
         }
     }
-
 }
 module.exports.getArticleById = async (req, res, next) => {
-
     try {
         const postId = req.params.id
         const articles = await Article.findById({
             _id: postId
         })
-
+        // Функция для вытаскивания даты и приведения его в нормальный вид
         const getDate = () => {
             try {
                 const articleDate = articles.articleDate
                 moment.locale('ru')
-                const beautify = moment(articleDate).format('DD MMMM YYYY, h:mm:ss')
+                const beautify = moment(articleDate).format('DD MMMM YYYY')
                 return beautify
             } catch (e) {
                 if (e) {
@@ -39,42 +37,20 @@ module.exports.getArticleById = async (req, res, next) => {
                     })
                 }
             }
-
         }
-        const getTags = () => {
-            try {
-                const getAllTags = articles.typeOfArticles
-                console.log(getAllTags)
-                const allTags = []
-                for (let tags = 0; tags < getAllTags.length; tags++) {
-                    if (getAllTags == '') {
-                        return "Теги не обнаружены"
-                    } else {
-                        allTags.push(getAllTags[tags])
-                    }
-                }
-                console.log(allTags)
-                return allTags.toString()
-            } catch (e) {
-                if (e) {
-                    res.json({
-                        Error: `Server error ${e}`
-                    })
-                }
-            }
-
+        // Вытаскивание картинок из БД
+        const getImg = () => {
+            const articleImg = articles.imageSrc
+            const articleImgRep = articleImg.replace(String.fromCharCode(92), '/')
+            return articleImgRep
         }
-        const articleImg = articles.imageSrc
-        const articleImgRep = articleImg.replace("\\", "/")
-        console.log(articleImgRep)
-
+        // Рендер страницы
         res.render('articlePage', {
             title: articles.articleTitle,
             id: postId,
             articleTitle: articles.articleTitle,
             articleBody: articles.articleBody,
-            articleImg: articleImgRep,
-            artileTags: getTags(),
+            articleImg: getImg(),
             articleDate: getDate(),
             checkAdmin: true
         })
@@ -83,5 +59,4 @@ module.exports.getArticleById = async (req, res, next) => {
             console.log(error)
         }
     }
-
 }

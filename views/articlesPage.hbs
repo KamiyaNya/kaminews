@@ -1,30 +1,31 @@
 <main class="main-container container">
     <h1 class="row mt-3 mb-3 ms-3 me-0">Новости</h1>
-    <div class="main-box row">
-        {{#if articles}}
-        <ul class="row p-3 me-0">
-            {{#each articles}}
-            <a href="/news/{{_id}}" class="link text-dark row mt-3 mb-3 me-0">
-                <li class="card p-3 ">
-                    <div class="card-body row p-0 m-0">
+    <div class="row">
+        <div class="main-box row col m-0">
+            {{#if articles}}
+            <ul class="row p-3 me-0">
+                {{#each articles}}
+                <li class=" card p-0 mt-3 mb-3 link-heigth">
+                    <a href="/news/{{_id}}" class="link text-dark row m-0">
 
-                        <div class="row col-12 col-sm-2 m-0 p-0">
-                            {{!-- <img src="{{articleImg}}" alt="{{articleImgAlt}}"> --}}
-                            <p>text</p>
-                        </div>
-                        <div class="row col-12 col-sm-10 m-0 p-0">
-                            <h5>
-                                {{articleTitle}}
-                            </h5>
-                            <p class="col text-truncate">{{articleBody}}</p>
-                        </div>
+                        <div class="card-body row p-0 m-0">
+                            <div class="row col-12 col-sm-3 m-0 p-0 article-row img-size"
+                                style="background-image: url('{{imageSrc}}');">
+                            </div>
 
-                    </div>
+                            <div class="row col-12 col-sm-9 m-0 p-0 pt-3 pb-3 d-flex align-items-center">
+                                <div class="row m-0">
+                                    <p class="text col" style="text-transform: capitalize;">{{articleTitle}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="{{_id}}">
+                    </a>
                 </li>
-            </a>
-            {{/each}}
-        </ul>
-        {{/if}}
+                {{/each}}
+            </ul>
+            {{/if}}
+        </div>
     </div>
 </main>
 

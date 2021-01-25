@@ -15,23 +15,26 @@ const upload = require('../middleware/upload')
 
 const api = Router()
 
-api.get('/', mainController.mainPage)
-api.get('/news', getArticlesConstroller.getArticles)
+api.get('/', getArticlesConstroller.getArticles)
 api.get('/news/:id', getArticlesConstroller.getArticleById)
-api.get('/adminsobakapanel/create_article',
+api.get('/adminpanel/create_article',
     (req, res, next) => {
-        const cookies = req.cookies.token
-        if (!cookies) {
-            res.send(`Вы не авторизованы <a href='/adminsobakapanel'>Авторизоваться<a>`)
-        } else {
-            jwt.verify(cookies, jwtKey)
+        try {
+            const cookies = req.cookies.token
+            if (!cookies) {
+                res.send(`Вы не авторизованы <a href='/adminpanel'>Авторизоваться<a>`)
+            } else {
+                jwt.verify(cookies, jwtKey)
+                next()
+            }
+        } catch (error) {
+            console.log(error)
         }
-        next()
     }, mainController.createArticlePage)
 
-api.get('/adminsobakapanel', (req, res, next) => {
+api.get('/adminpanel', (req, res, next) => {
     if (req.cookies.token) {
-        res.redirect('/adminsobakapanel/create_article')
+        res.redirect('/adminpanel/create_article')
     } else {
         next()
     }
@@ -48,10 +51,7 @@ api.get('/logout', async (req, res) => {
     }
     res.redirect('/');
 })
-api.post('/adminsobakapanel/check_user', loginController.checkUser)
-api.post('/adminsobakapanel/create_article/publishToSite', upload.single('articleImg'), [
-    body('articleTitle').not().isEmpty().withMessage("Заголовок не может быть пустым"),
-    body('articleBody').not().isEmpty().withMessage("тело не может быть пустым")
-], createArticleController.createArticle)
+api.post('/adminpanel/check_user', loginController.checkUser)
+api.post('/adminpanel/create_article/publishToSite', upload.single('articleImg'), createArticleController.createArticle)
 
 module.exports = api

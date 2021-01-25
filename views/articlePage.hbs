@@ -1,17 +1,20 @@
 <main class="main-container container h-100">
-    <div class="main-box row pt-5 pb-5">
-        <h1 class="row h-25">{{articleTitle}}
-            <p>{{articleDate}}</p>
-        </h1>
+    <div class="main-box row mt-4 mb-4 pb-2">
         <div class="row">
-            <img src="/{{articleImg}}" alt="{{articleTitle}}">
+            <h1 style="text-transform: uppercase;">{{articleTitle}}</h1>
+            <p>{{articleDate}}</p>
         </div>
-        <div class="row col mt-5 flex-wrap">
-            {{articleBody}}
-        </div>
-        <div class="row border">
-            Теги :{{artileTags}}
 
+        <div class="row article-img-size justify-content-center">
+            {{#if articleImg}}
+            <img src="/{{articleImg}}" class="img-fluid" alt="{{articleTitle}}">
+            {{#else}}
+            &nbsp;
+            {{/else}}
+            {{/if}}
+        </div>
+        <div class="row col mt-3 flex-wrap article-body">
+            {{articleBody}}
         </div>
     </div>
 </main>

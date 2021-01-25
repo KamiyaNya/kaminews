@@ -13,14 +13,7 @@
                 <div class="col mt-3">
                     <label for="validationCustom02" class="form-label">Тело</label>
                     <textarea type="text" class="form-control" id="validationCustom02" name="articleBody" rows="10"
-                        wrap="hard" required></textarea>
-                    <div class="valid-feedback">
-                        Отлично!
-                    </div>
-                </div>
-                <div class="col mt-3 mb-3">
-                    <label for="validationCustom03" class="form-label">Теги</label>
-                    <input type="text" class="form-control" id="validationCustom03" name="typeOfArticles">
+                        required></textarea>
                     <div class="valid-feedback">
                         Отлично!
                     </div>
@@ -28,8 +21,8 @@
                 <div class="mb-3 col col-sm-4">
                     <label for="formFile" class="form-label">Выберите
                         изображение</label>
-                    <input class="form-control" type="file" accept="image/png,image/jpeg,image/jpg" name="articleImg"
-                        id="formFile">
+                    <input class="form-control" type="file" accept="image/webp" name="articleImg" id="formFile"
+                        required>
                 </div>
                 <div class="col-12">
                     <button class="btn btn-dark" type="submit">Опубликовать пост</button>
