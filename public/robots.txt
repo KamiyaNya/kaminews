@@ -1,0 +1,5 @@
+User-agent:*
+Disallow:/middleware/
+Disallow:/publishToSite
+Disallow:/create_article
+Disallow:/adminpanel
