@@ -42,7 +42,7 @@ module.exports.registration = async (req,res) =>{
         const userEmail = req.body.useremail
         const userName = req.body.username
         const userPassword = req.body.userpassword
-        const candidate = await Article.findOne(email: userEmail)
+        const candidate = await User.findOne(email: userEmail)
         if(candidate){
             res.status(400).json({message: `Пользователь с email ${userEmail} уже существует`})
         }
