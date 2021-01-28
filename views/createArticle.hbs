@@ -21,8 +21,7 @@
                 <div class="mb-3 col col-sm-4">
                     <label for="formFile" class="form-label">Выберите
                         изображение</label>
-                    <input class="form-control" type="file" accept="image/webp" name="articleImg" id="formFile"
-                        required>
+                    <input class="form-control" type="file" accept="image/webp" name="articleImg" id="formFile">
                 </div>
                 <div class="col-12">
                     <button class="btn btn-dark" type="submit">Опубликовать пост</button>
@@ -34,8 +33,7 @@
 <script>
     (function () {
         'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-
+        let forms = document.querySelectorAll('.needs-validation')
         Array.prototype.slice.call(forms)
             .forEach(function (form) {
                 form.addEventListener('submit', function (event) {
@@ -48,4 +46,6 @@
                 }, false)
             })
     })()
+
+
 </script>
