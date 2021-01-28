@@ -18,25 +18,40 @@ const api = Router()
 api.get('/', getArticlesConstroller.getArticles)
 api.get('/news/:id', getArticlesConstroller.getArticleById)
 api.get('/adminpanel/create_article',
-    (req, res, next) => {
+    async (req, res, next) => {
         try {
             const cookies = req.cookies.token
             if (!cookies) {
                 res.send(`Вы не авторизованы <a href='/adminpanel'>Авторизоваться<a>`)
-            } else {
-                jwt.verify(cookies, jwtKey)
+            }
+            const decoded = await jwt.verify(cookies, jwtKey)
+            if (cookies && decoded.role == 'superadmin') {
                 next()
+            } else {
+                res.redirect('/')
             }
         } catch (error) {
             console.log(error)
         }
     }, mainController.createArticlePage)
 
-api.get('/adminpanel', (req, res, next) => {
-    if (req.cookies.token) {
-        res.redirect('/adminpanel/create_article')
-    } else {
-        next()
+api.get('/adminpanel', async (req, res, next) => {
+    try {
+        const cookies = req.cookies.token
+
+        if (!cookies) {
+            next()
+        }
+        if (cookies) {
+            const decoded = await jwt.verify(cookies, jwtKey)
+            if (decoded.role === 'superadmin') {
+                res.redirect('/adminpanel/create_article')
+            } else {
+                res.redirect('/')
+            }
+        }
+    } catch (e) {
+        console.log(e)
     }
 }, mainController.loginPage)
 api.get('/logout', async (req, res) => {
@@ -51,7 +66,8 @@ api.get('/logout', async (req, res) => {
     }
     res.redirect('/');
 })
-api.post('/adminpanel/check_user', loginController.checkUser)
+api.post('/adminpanel/login', loginController.checkUser)
+api.post('/adminpanel/registration', loginController.registration)
 api.post('/adminpanel/create_article/publishToSite', upload.single('articleImg'), createArticleController.createArticle)
 
 module.exports = api
