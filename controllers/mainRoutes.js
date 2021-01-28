@@ -9,7 +9,8 @@ module.exports.loginPage = function (req, res) {
     res.render('loginPage', {
         title: 'Войти',
         method: 'POST',
-        actionUrl: '/adminpanel/check_user',
+        loginUrl: '/adminpanel/login',
+        registorUrl: '/adminpanel/registration',
         checkAdmin: true
     })
 }
@@ -18,7 +19,6 @@ module.exports.createArticlePage = function (req, res) {
         title: 'Добавить новость',
         method: 'POST',
         actionUrl: '/adminpanel/create_article/publishToSite',
-        logout: true
+        logout: true,
     })
-
 }
