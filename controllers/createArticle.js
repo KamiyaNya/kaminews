@@ -1,7 +1,3 @@
-const {
-    validationResult
-} = require('express-validator')
-
 const Article = require('../models/Article')
 
 module.exports.createArticle = async function (req, res) {
@@ -11,10 +7,12 @@ module.exports.createArticle = async function (req, res) {
         const articleBody = req.body.articleBody
         const articleImgSrc = req.file ? req.file.path : ''
         const articleImgSrcCorrectPath = articleImgSrc.replace(String.fromCharCode(92), '/')
-        if (!articleTitle) {
-            res.status(400).json({
-                message: "Пустой заголовок"
-            })
+        for (let i = 0; i < articleTitle.length; i++) {
+            if (articleTitle.length < 5) {
+                res.status(400).json({
+                    message: 'Длина заголовка не меньше 5 символов'
+                })
+            }
         }
         if (!articleBody) {
             res.status(400).json({
