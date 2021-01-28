@@ -36,3 +36,37 @@ module.exports.checkUser = async function (req, res, next) {
         console.log(e)
     }
 }
+
+module.exports.registration = async (req,res) =>{
+    try{
+        const userEmail = req.body.useremail
+        const userName = req.body.username
+        const userPassword = req.body.userpassword
+        const candidate = await Article.findOne(email: userEmail)
+        if(candidate){
+            res.status(400).json({message: `Пользователь с email ${userEmail} уже существует`})
+        }
+        if(!userEmail){
+            res.status(400).json({message: `Поле "email" не может быть пустым`})
+        }
+        if(!userName){
+            res.status(400).json({message: `Поле "Имя пользователя" не может быть пустым`})
+        }
+        if(!userPassword){
+            res.status(400).json({message: `Поле "Пароль" не может быть пустым`})
+        }
+        const hashPassword = await bcrypt.hash(userPassword, 10)
+        
+        const userCreate = User({
+            email: userEmail,
+            username: userEmail,
+            password: hashPassword
+        }) 
+        
+        await userCreate.save()
+        res.status(200).send(`Пользователь создан`)
+        
+    }catch(e){
+        console.log(e)
+    }
+}
