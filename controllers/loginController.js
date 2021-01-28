@@ -6,10 +6,10 @@ const jwtKey = require('../config.json').secretJWTKey
 
 module.exports.checkUser = async function (req, res, next) {
     try {
-        const username = req.body.username
-        const password = req.body.password
+        const username = req.body.loginusername
+        const password = req.body.loginpassword
         const user = await User.findOne({
-            email: username
+            username: username
         })
         if (!user) {
             res.status(404).send(`<p>Пользователь ${username} не найден <a href="/adminpanel">Вернуться</a><p>`)
@@ -20,7 +20,8 @@ module.exports.checkUser = async function (req, res, next) {
         }
         const token = jwt.sign({
             userId: user._id,
-            username: user.email
+            username: user.username,
+            role: user.role
         }, jwtKey, {
             expiresIn: '1h'
         })
@@ -37,36 +38,59 @@ module.exports.checkUser = async function (req, res, next) {
     }
 }
 
-module.exports.registration = async (req,res) =>{
-    try{
-        const userEmail = req.body.useremail
-        const userName = req.body.username
-        const userPassword = req.body.userpassword
-        const candidate = await User.findOne(email: userEmail)
-        if(candidate){
-            res.status(400).json({message: `Пользователь с email ${userEmail} уже существует`})
+module.exports.registration = async (req, res) => {
+    try {
+        const userEmail = req.body.reguseremail
+        const userName = req.body.regusername
+        const userPassword = req.body.reguserpassword
+        const candidate = await User.findOne({
+            email: userEmail
+        })
+        if (candidate) {
+            res.status(400).json({
+                message: `Пользователь с email ${userEmail} уже существует`
+            })
         }
-        if(!userEmail){
-            res.status(400).json({message: `Поле "email" не может быть пустым`})
+        if (!userEmail) {
+            res.status(400).json({
+                message: `Поле "email" не может быть пустым`
+            })
         }
-        if(!userName){
-            res.status(400).json({message: `Поле "Имя пользователя" не может быть пустым`})
+        if (!userName) {
+            res.status(400).json({
+                message: `Поле "Имя пользователя" не может быть пустым`
+            })
         }
-        if(!userPassword){
-            res.status(400).json({message: `Поле "Пароль" не может быть пустым`})
+        if (!userPassword) {
+            res.status(400).json({
+                message: `Поле "Пароль" не может быть пустым`
+            })
         }
         const hashPassword = await bcrypt.hash(userPassword, 10)
-        
-        const userCreate = User({
-            email: userEmail,
-            username: userEmail,
-            password: hashPassword
-        }) 
-        
-        await userCreate.save()
-        res.status(200).send(`Пользователь создан`)
-        
-    }catch(e){
+        const role = await User.findOne({
+            role: 'superadmin'
+        })
+        if (!role) {
+            const userCreate = User({
+                email: userEmail,
+                username: userName,
+                password: hashPassword,
+                role: 'superadmin'
+            })
+            await userCreate.save()
+
+        } else {
+            const userCreate = User({
+                email: userEmail,
+                username: userName,
+                password: hashPassword
+            })
+            await userCreate.save()
+
+        }
+        res.status(200).send(`Пользователь создан <a href='/adminpanel'>Войти</a>`)
+
+    } catch (e) {
         console.log(e)
     }
 }
